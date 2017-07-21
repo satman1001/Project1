@@ -1,7 +1,15 @@
-a <- c(1,2,3,4)
-a
+# Project Proposal
 
-# this is a test
+# install.packages('ggplot2') # visualization
+# install.packages('ggthemes') # visualization
+# install.packages('scales') # visualization
+# install.packages('dplyr') # data manipulation
+# install.packages('mice') # imputation
+# install.packages('randomForest') # classification algorithm
 
-#document
-#what
+library('ggplot2') # visualization
+library('ggthemes') # visualization
+library('scales') # visualization
+library('dplyr') # data manipulation
+library('mice') # imputation
+library('randomForest') # classification algorithm
