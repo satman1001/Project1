@@ -8,6 +8,49 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+![Titanic Tragedy](titanic.jpg)
+
+## Predicting survival on the Titanic 
+
+
+This project will aim to 
+
+```{r data}
+train <- read.csv('train.csv', stringsAsFactors = F)
+str(train)
+```
+
+`r mean(rnorm(100))`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## R Markdown
 
