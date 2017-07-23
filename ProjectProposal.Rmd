@@ -1,5 +1,5 @@
 ---
-title: "Project Proposal -Titanic dataset"
+title: "Project Proposal - Predicting survival on the Titanic "
 author: "Sathish Sathyamurthy"
 date: "July 21, 2017"
 output: html_document
@@ -10,17 +10,45 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ![Titanic Tragedy](titanic.jpg)
 
-## Predicting survival on the Titanic 
+## 1. Capstone Project Proposal
 
+This project will utlize the Kaggle Competition introduction dataset - Titanic- Machine Learning from Disaster
 
-This project will aim to 
+Competition Description
+The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. This sensational tragedy shocked the international community and led to better safety regulations for ships.
+One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.
+In this challenge, we ask you to complete the analysis of what sorts of people were likely to survive. In particular, we ask you to apply the tools of machine learning to predict which passengers survived the tragedy.
+
+## 2. The DataSet
+
+A quick review of the training &  test datasets shows 12 variables with ~1000 line items. The full description of each variable can be identified from the supporting competition readme documents and are listed in a dataframe below 
+
+### 2.1 Review of the Training dataset
 
 ```{r data}
 train <- read.csv('train.csv', stringsAsFactors = F)
-str(train)
+knitr::kable(str(train))
+
+
 ```
 
-`r mean(rnorm(100))`
+### 2.2 Variable Name & Description
+
+```{r}
+
+names <- c("Survived","Pclass","Name","Sex","Age","SibSp","Parch","Ticket","Fare","Cabin","Embarked")
+
+description <- c("Survived (1) or died (0)","Passenger’s class","Passenger’s name","Passenger’s sex","Passenger’s age","Number of siblings & spouses aboard","Number of parents & children aboard",
+"Ticket number","Fare","Cabin","Port of embarkation")
+
+NamesDesc <- data.frame(names,description)
+knitr::kable(NamesDesc)
+
+```
+
+#References
+
+1. [Kaggle Titanic Dataset](https://www.kaggle.com/c/titanic)
 
 
 
