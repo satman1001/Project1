@@ -21,9 +21,10 @@
 
 train <- read.csv('train.csv', stringsAsFactors = F)
 test  <- read.csv('test.csv', stringsAsFactors = F)
-
+gender_submission  <- read.csv('gender_submission.csv', stringsAsFactors = F)
 full  <- bind_rows(train, test) # combine
 
 # check data
 str(full)
 summary(full)
+str(gender_submission)

@@ -4,26 +4,33 @@ author: "Sathish Sathyamurthy"
 date: "July 21, 2017"
 output: html_document
 ---
-
+ library('ggplot2') # visualization
+ library('ggthemes') # visualization
+ library('scales') # visualization
+ library('dplyr') # data manipulation
+ library('mice') # imputation
+ library('randomForest') # classification algorithm
+ library('htmlwidgets') #interactive widgets
+ library('knitr') #knitr codechunks
+ 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ![Titanic Tragedy](titanic.jpg)
 
-## 1. Capstone Project Proposal
+## 1. Introduction
 
-This project will utlize the Kaggle Competition introduction dataset - Titanic- Machine Learning from Disaster
+For this project proposal, I intend to use the 'Titanic practice dataset' from the Kaggle Competition (Titanic- Machine Learning from Disaster) to predict the types of passengers that are most likely to survive the disaster. In this proposal, I provide a quick overview of the problem, the dataset and my current thinking on how I will approach solving the problem.
 
-Competition Description
-The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. This sensational tragedy shocked the international community and led to better safety regulations for ships.
+#### 1.1 Competition Description ([from Kaggle](https://www.kaggle.com/c/titanic))
+The sinking of the RMS Titanic is one of the most infamous shipwrecks in history. On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. This sensational tragedy shocked the international community and led to better safety regulations for ships.
 One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.
 In this challenge, we ask you to complete the analysis of what sorts of people were likely to survive. In particular, we ask you to apply the tools of machine learning to predict which passengers survived the tragedy.
 
-## 2. The DataSet
+## 2. The Dataset
 
-A quick review of the training &  test datasets shows 12 variables with ~1000 line items. The full description of each variable can be identified from the supporting competition readme documents and are listed in a dataframe below 
+A quick review of the training &  test datasets shows 12 variables with ~1300 line items. Each row provides details about an individual passenger such as Age, sex, Passenger Class, family details etc. The independent variable is the 'Survived' field with a binary (1/0) output.  The full name and description of each variable are listed below. A detailed explanation of the data can be found in the [kaggle data dictionary](https://www.kaggle.com/c/titanic/data)
 
-### 2.1 Review of the Training dataset
 
 ```{r data}
 train <- read.csv('train.csv', stringsAsFactors = F)
@@ -32,7 +39,7 @@ knitr::kable(str(train))
 
 ```
 
-### 2.2 Variable Name & Description
+#### 2.1 Variable Name & Description
 
 ```{r}
 
@@ -42,11 +49,42 @@ description <- c("Survived (1) or died (0)","Passenger’s class","Passenger’s
 "Ticket number","Fare","Cabin","Port of embarkation")
 
 NamesDesc <- data.frame(names,description)
-knitr::kable(NamesDesc)
+NamesDesc
 
 ```
 
-#References
+## 3. Approach
+
+My proposal on providing a solution to this problem is as follows
+
+####1. Wrangle Data and Cleanup
+The first step is to parse the training dataset and provide a more clear picture of the data. This may include 
+ - identifying and mapping passenger titles from the passenger name
+ - Breakdown the Cabin variable values to identify cabin location
+ - Impute mising values (see below)
+
+##### 1.1. Impute missing values
+For variables that have large chunks of missing data, I will aim to impute the missing data through both simple statistical approaches (Mean/Median/Mode etc) as well as by using more complex imputation packages such as MICE / Amelia.
+
+####2. Identify key variables 
+Based on the provided details  and reviewing the history of the incident, I will attempt to identify the most intutive variables that impact  survivability. 
+
+Based on initial review of the dataset and historical incident details some of the key variables impacting survival can be intutively identified such as  the passenger class (Upper is better) sex (Female over Male) and Age (children vs Adults). 
+
+Other variables are not as intutive and will require analysis. For example 
+
+- By family size  -  (SibSp) + Parch
+- By location i.e.,  Cabin values seems to have the deck details
+
+
+####3. Confirm with Data Analysis and identify other interdepent variables 
+Subject the selected variables to co-relation analysis with the independent variable  as well as any other 'yet to be determind' analysis to determine the best choices.I will graphically plot the interdependence using various type of graphs to provide a visual showcase. 
+
+####4. Develop Model and compare against test dataset
+Suject the  initial selection of key variables to survivability to a classification algorithm (such as Random Forest)  and test acccuracy against the independet variable. I expect that there will need to be multiple adjustments and iterations before locking on an optimal version to run against the test dataset. The best outcome is to identify the top ranking variables that imapct survivability.
+
+
+## References
 
 1. [Kaggle Titanic Dataset](https://www.kaggle.com/c/titanic)
 
@@ -77,25 +115,3 @@ knitr::kable(NamesDesc)
 
 
 
-
-
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
