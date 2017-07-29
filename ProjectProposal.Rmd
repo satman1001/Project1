@@ -35,8 +35,9 @@ A quick review of the training &  test datasets shows 12 variables with ~1300 li
 
 ```{r data}
 train <- read.csv('train.csv', stringsAsFactors = F)
-knitr::kable(str(train))
-
+test  <- read.csv('test.csv', stringsAsFactors = F)
+full  <- bind_rows(train, test) # combine
+knitr::kable(str(full))
 
 ```
 
@@ -76,6 +77,16 @@ Other variables are not as intutive and will require analysis. For example
 
 - By family size  -  (SibSp) + Parch
 - By location i.e.,  Cabin values seems to have the deck details
+
+```{r}
+library(ggplot2)
+qplot(data=full,x=Pclass)
+qplot(data=full,x=Pclass, color=Survived)
+qplot(data=full,x=Pclass,y=Survived,log="xy",color=Pclass)
+qplot(data=full,x=Pclass, y=PassengerId,log="xy",color=PassengerId,facets = ~Survived)
+
+```
+
 
 
 ####3. Confirm with Data Analysis and identify other interdepent variables 
